@@ -51,7 +51,7 @@ $(".showWeatherForecast").append('You can check the current weather conditions i
         var key = 'acf77a55bdaadecedf93723c4fb829d0';
 
         $.ajax({
-          url: 'http://api.openweathermap.org/data/2.5/weather',
+          url: 'https://api.openweathermap.org/data/2.5/weather',
           dataType: 'json',
           type: 'GET',
           data: { q: city, appid: key, units: 'metric' },
