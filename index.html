@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Api</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/edbbd20e25.js" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+  <button onclick="darkMode()" id="btnDark" class="button mode"><i class="fas fa-moon fa-2x"></i></button>
+  <button onclick="lightMode()" id="btnLight" class="button mode"><i class="far fa-sun fa-2x"></i></button>
+  <div class="container">
+    <div class="search">
+      <input id="city" placeholder="Your city" class="inputField"></input>
+      <button id="getWeatherForecast" class="searchButton"><i class="fas fa-search"></i></button>
+    </div>
+
+    <div class="weatherResult">
+      <div class="showWeatherForecast"></div>
+    </div>
+
+  </div>
+
+
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+$(".showWeatherForecast").append('You can check the current weather conditions in almost every city in the world!').css('margin', '40px');
+
+    /*  $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=Amsterdam&appid=acf77a55bdaadecedf93723c4fb829d0&units=metric", function (data, val) {
+        var amsterdamWeather = '<p><b>' + data.name + '</b></p>' + data.main.temp + '&deg;C ' +
+                ' <br/> ' + val.main + ', ' + val.description;
+                $(".showWeatherForecast").html(amsterdamWeather);
+      }); */
+
+    });
+
+    $(document).ready(function () {
+
+      $("#getWeatherForecast").click(function () {
+
+        var city = $("#city").val();
+        var key = 'acf77a55bdaadecedf93723c4fb829d0';
+
+        $.ajax({
+          url: 'http://api.openweathermap.org/data/2.5/weather',
+          dataType: 'json',
+          type: 'GET',
+          data: { q: city, appid: key, units: 'metric' },
+
+          success: function (data) {
+            var weatherForecast = '';
+            $.each(data.weather, function (index, val) {
+
+              weatherForecast += '<p><b>' + data.name + '</b><img src=' + val.icon + '.png></p>' + data.main.temp + '&deg;C ' +
+                ' <br/> ' + val.main + ', ' + val.description
+
+            });
+
+            $(".showWeatherForecast").html(weatherForecast);
+          }
+
+        })
+
+      });
+    });
+  </script>
+  <footer>
+    <div>Icons made by Freepik from Flaticon</a></div>
+  </footer>
+</body>
+
+</html>
