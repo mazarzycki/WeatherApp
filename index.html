@@ -39,7 +39,7 @@
       $.getJSON(amsterdamUrl, function (data, textStatus) {
         var amsterdamWeather = '';
 
-        amsterdamWeather += '<p><b>' + data.name + '</b><img src=' + data.weather[0].icon + '.png></p>' + data.main.temp + '&deg;C ' +
+        amsterdamWeather += '<p><b>' + data.name + ', ' + data.sys.country + '</b><img src=' + data.weather[0].icon + '.png></p>' + data.main.temp + '&deg;C ' +
           ' <br/> ' + data.weather[0].main + ', ' + data.weather[0].description;
         $(".showWeatherForecast").html(amsterdamWeather);
       });
@@ -69,8 +69,8 @@
               // index === 0
               // val === 1
 
-              weatherForecast += '<p><b>' + data.name + '</b><img src=' + weather.icon + '.png></p>' + data.main.temp + '&deg;C ' +
-                ' <br/> ' + weather.main + ', ' + weather.description;
+              weatherForecast += '<p><b>' + data.name + ', ' + data.sys.country + '</b><img src=' + weather.icon + '.png></p>' + data.main.temp + '&deg;C ' +
+                ' <br/> ' + weather.main + ', ' + weather.description; 
             });
 
 
