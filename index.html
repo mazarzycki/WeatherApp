@@ -33,13 +33,16 @@
 
     $(document).ready(function () {
 
-$(".showWeatherForecast").append('You can check the current weather conditions in almost every city in the world!').css('margin', '40px');
 
-    /*  $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=Amsterdam&appid=acf77a55bdaadecedf93723c4fb829d0&units=metric", function (data, val) {
-        var amsterdamWeather = '<p><b>' + data.name + '</b></p>' + data.main.temp + '&deg;C ' +
-                ' <br/> ' + val.main + ', ' + val.description;
-                $(".showWeatherForecast").html(amsterdamWeather);
-      }); */
+      const amsterdamUrl = "http://api.openweathermap.org/data/2.5/weather?q=Amsterdam&appid=acf77a55bdaadecedf93723c4fb829d0&units=metric";
+
+      $.getJSON(amsterdamUrl, function (data, textStatus) {
+        var amsterdamWeather = '';
+
+        amsterdamWeather += '<p><b>' + data.name + '</b><img src=' + data.weather[0].icon + '.png></p>' + data.main.temp + '&deg;C ' +
+          ' <br/> ' + data.weather[0].main + ', ' + data.weather[0].description;
+        $(".showWeatherForecast").html(amsterdamWeather);
+      });
 
     });
 
@@ -58,12 +61,18 @@ $(".showWeatherForecast").append('You can check the current weather conditions i
 
           success: function (data) {
             var weatherForecast = '';
-            $.each(data.weather, function (index, val) {
+            // data -> resultado do AJAX
+            // weather -> lista [1,2,3,4,5]
+            //             0,1,2,3,4 - indexes
 
-              weatherForecast += '<p><b>' + data.name + '</b><img src=' + val.icon + '.png></p>' + data.main.temp + '&deg;C ' +
-                ' <br/> ' + val.main + ', ' + val.description
+            $.each(data.weather, function (index, weather) {
+              // index === 0
+              // val === 1
 
+              weatherForecast += '<p><b>' + data.name + '</b><img src=' + weather.icon + '.png></p>' + data.main.temp + '&deg;C ' +
+                ' <br/> ' + weather.main + ', ' + weather.description;
             });
+
 
             $(".showWeatherForecast").html(weatherForecast);
           }
